@@ -20,7 +20,13 @@ class Node
 end
 
 class LinkedList
+  include Enumerable
+  attr_reader :head, :tail
   def initialize
+    @head = Node.new()
+    @tail = Node.new()
+    @head.next = @tail
+    @tail.prev = @head
   end
 
   def [](i)
@@ -35,6 +41,10 @@ class LinkedList
   end
 
   def empty?
+    if @head.next == @tail && @tail.prev == @head
+      return true
+    end
+    false
   end
 
   def get(key)
@@ -44,6 +54,15 @@ class LinkedList
   end
 
   def append(key, val)
+    cursor = @head
+    new_node = Node.new(key, val)
+    while cursor.next != @tail
+      cursor = cursor.next
+    end
+    new_node.prev = cursor
+    cursor.next = new_node
+    new_node.next = @tail
+    @tail.prev = new_node
   end
 
   def update(key, val)
@@ -53,6 +72,8 @@ class LinkedList
   end
 
   def each
+    arr = []
+    
   end
 
   # uncomment when you have `each` working and `Enumerable` included

@@ -2,6 +2,7 @@ require 'rspec'
 require 'p01_int_set'
 
 describe MaxIntSet do
+
   let(:set) { MaxIntSet.new(50) }
 
   describe "#include?" do
@@ -142,7 +143,9 @@ describe ResizingIntSet do
 
     it "should resize when enough items are inserted" do
       expect(set).to receive(:resize!).exactly(1).times
+
       21.times { |i| set.insert(i)}
+      
     end
 
     it "should move elements into the correct bucket after resizing" do
